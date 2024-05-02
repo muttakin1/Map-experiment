@@ -4,6 +4,7 @@ import "./style.css";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import fetchQueenslandData from "./API-call";
 import { FaMapMarker } from "react-icons/fa";
 
 const legalIcon = new Icon({
@@ -13,8 +14,6 @@ const legalIcon = new Icon({
   iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
   popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
 });
-
-// import and use components as usual
 
 const MapComponents = (props) => {
   const ref = useRef(null);
@@ -27,28 +26,11 @@ const MapComponents = (props) => {
   coordinates.forEach((element) => console.log(element));
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://services1.arcgis.com/vkTwD8kHw2woKBqV/arcgis/rest/services/ESCAD_Current_Incidents_Public/FeatureServer/0/query?f=geojson&where=1%3D1&outFields=*');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const result = await response.json();
-        console.log(result);
-       // setData(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
 
-    fetchData();
+    fetchQueenslandData();
 
-    // Clean-up function, will be called on unmount or before re-running the effect
-    return () => {
-      // You can do any cleanup tasks here, such as canceling async tasks
-    };
   }, []);
-  
+
   return (
     <>
       <MapContainer
