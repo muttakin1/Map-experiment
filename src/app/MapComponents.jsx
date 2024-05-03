@@ -17,17 +17,18 @@ const legalIcon = new Icon({
 
 const MapComponents = (props) => {
   const ref = useRef(null);
-  const state = { center: { lat: 51.505, lng: -0.09 }, zoom: 13 };
+  const state = { center: { lat: -26.786053, lng: 153.135746 }, zoom: 13 };
   const coordinates = [
-    [51.505, -0.09],
-    [51.49, -0.09],
+    [-26.786053, 153.135746],
+    [-27, 153.5],
   ];
 
   coordinates.forEach((element) => console.log(element));
 
   useEffect(() => {
 
-    fetchQueenslandData();
+    const data = fetchQueenslandData();
+    console.log(data);
 
   }, []);
 
@@ -43,7 +44,7 @@ const MapComponents = (props) => {
           ref={ref}
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <ZoomControl position="bottomright" zoomInText="🧐" zoomOutText="🗺️" />
+        <ZoomControl position="bottomright" zoomInText="+" zoomOutText="-" />
        {coordinates.map((marker) => (
           <Marker position={marker} icon={legalIcon}>
             <Popup>
